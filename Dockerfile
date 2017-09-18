@@ -1,5 +1,5 @@
-FROM ubuntu:14.04
-LABEL maintainer="Jeff Geerling"
+FROM ubuntu:trusty
+LABEL maintainer="Michael Morehouse (yawpitch)"
 
 # Install dependencies.
 RUN apt-get update \
@@ -8,6 +8,7 @@ RUN apt-get update \
     && rm -Rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean
+
 # Install Ansible.
 RUN apt-add-repository -y ppa:ansible/ansible \
     && apt-get update \
@@ -17,8 +18,14 @@ RUN apt-add-repository -y ppa:ansible/ansible \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean
 
-# Install Ansible inventory file
-RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+# Install Ansible inventory file.
+RUN echo "[local]\nlocalhost" > /etc/ansible/hosts
 
-# Workaround for pleaserun tool that Logstash uses
-RUN rm -rf /sbin/initctl && ln -s /sbin/initctl.distrib /sbin/initctl
+# Restore initct.
+RUN rm /sbin/initctl && cp /sbin/initctl.distrib /sbin/initctl
+
+# Clean up.
+RUN apt-get clean && apt-get autoclean -y && apt-get autoremove -y
+
+# Set initial cmd
+CMD ["/sbin/init"]

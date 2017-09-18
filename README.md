@@ -1,32 +1,71 @@
-# Ubuntu 14.04 LTS (Trusty) Ansible Test Image
+# Ubuntu Trusty (14.04 LTS) Ansible Test Image
 
-[![Docker Automated build](https://img.shields.io/docker/automated/geerlingguy/docker-ubuntu1404-ansible.svg?maxAge=2592000)](https://hub.docker.com/r/geerlingguy/docker-ubuntu1404-ansible/)
+[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-trusty.svg?branch=master)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-trusty/)
+[![Docker Automated build](https://img.shields.io/docker/automated/yawpitch/docker-ansible-ubuntu-trusty.svg?maxAge=2592000)](https://hub.docker.com/r/yawpitch/docker-ansible-ubuntu-trusty/)
 
-Ubuntu 14.04 LTS (Trusty) Docker container for Ansible playbook and role testing.
+Dockerized Ubuntu Trusty (14.04 LTS) for Ansible playbook and role tests.
 
-## How to Build
+## For Ansible Testing Only 
 
-This image is built on Docker Hub automatically any time the upstream OS container is rebuilt, and any time a commit is made or merged to the `master` branch. But if you need to build the image on your own locally, do the following:
+This image is intended *solely* for automated testing of Ansible playbooks and roles as a local process inside a container running on a CI server such as Jenkins or Travis. It is neither configured nor intended for use in any secure or production environment, and **any use is at your own risk**.
 
-  1. [Install Docker](https://docs.docker.com/engine/installation/).
-  2. `cd` into this directory.
-  3. Run `docker build -t ubuntu1404-ansible .`
+## Getting Started
 
-## How to Use
+First, [Install Docker](https://docs.docker.com/engine/installation/), then choose which image to use.
 
-  1. [Install Docker](https://docs.docker.com/engine/installation/).
-  2. Pull this image from Docker Hub: `docker pull geerlingguy/docker-ubuntu1404-ansible:latest` (or use the tag you built earlier, e.g. `ubuntu1404-ansible`).
-  3. Run a container from the image: `docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro geerlingguy/docker-ubuntu1404-ansible:latest /sbin/init` (to test my Ansible roles, I add in a volume mounted from the current working directory with ``--volume=`pwd`:/etc/ansible/roles/role_under_test:ro``).
-  4. Use Ansible inside the container:
-    a. `docker exec --tty [container_id] env TERM=xterm ansible --version`
-    b. `docker exec --tty [container_id] env TERM=xterm ansible-playbook /path/to/ansible/playbook.yml --syntax-check`
+### Option 1: Pull from Docker Hub
 
-## Notes
+Any time a commit is merged to the `master` branch of this repo, **or** any time there is a rebuild of the upstream OS container, an Automatic Build will occur on Docker Hub. You can use this be *pulling* the image to your local machine:
 
-I use Docker to test my Ansible roles and playbooks on multiple OSes using CI tools like Jenkins and Travis. This container allows me to test roles and playbooks using Ansible running locally inside the container.
+```sh
+sudo docker pull yawpitch/docker-ansible-ubuntu-trusty:latest
+```
 
-> **Important Note**: I use this image for testing in an isolated environment—not for production—and the settings and configuration used may not be suitable for a secure and performant production environment. Use on production servers/in the wild at your own risk!
+For convenience, a `make pull` target has been provided to do this for you. You can also both pull & verify the current Docker Hub image with the following command:
+
+```sh
+make test-hub
+```
+
+This will ensure that a container launched with from the image at minimum contains the `ansible` command.
+
+### Option 2: Local build
+
+If you wish to build the image on your local machine, `git clone` this repo, `cd` into the repo, and then run:
+
+```sh
+sudo docker build -t docker-ansible-ubuntu-trusty .
+```
+
+For convenience, a `make build` target has been provided to do this for you. You can also both build & verify a local image of the current repo with the following command:
+
+```sh
+make test-local
+```
+
+This will ensure that a container launched with from the image at minimum contains the `ansible` command.
+
+## Use in Ansible playbook & role testing
+
+First, Run a container from the image: 
+
+```sh
+docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro [IMAGE NAME]:latest
+```
+
+To test Ansible roles, add in a volume mounted from the current working directory of the role:
+
+```sh
+docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro --volume=`pwd`:/etc/ansible/roles/role_under_test:ro [IMAGE NAME]:latest    
+```
+  
+Then use `docker exec` to acccess Ansible inside the container:
+
+```sh
+docker exec --tty [container_id] env TERM=xterm ansible --version
+docker exec --tty [container_id] env TERM=xterm ansible-playbook /path/to/ansible/playbook.yml --syntax-check
+```
 
 ## Author
 
-Created in 2016 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+Maintained by Michael Morehouse (yawpitch), slightly modified from the work of [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
