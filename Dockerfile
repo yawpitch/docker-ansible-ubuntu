@@ -21,7 +21,7 @@ RUN apt-add-repository -y ppa:ansible/ansible \
 # Install Ansible inventory file.
 RUN echo "[local]\nlocalhost" > /etc/ansible/hosts
 
-# Restore initct.
+# Restore initctl.
 RUN rm /sbin/initctl && cp /sbin/initctl.distrib /sbin/initctl
 
 # Clean up.

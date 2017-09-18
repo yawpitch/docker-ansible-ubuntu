@@ -6,7 +6,7 @@ CURDIR := $(dir $(realpath $(THIS)))
 ifndef IMAGE
 IMAGE := $(notdir $(basename $(CURDIR:%/=%)))
 endif
-CONTAINER := $(IMAGE)-container
+CONTAINER := $(notdir $(basename $(IMAGE)-container))
 G = "\033[92m"
 R = "\033[91m"
 Y = "\033[93m"
@@ -15,7 +15,7 @@ IMAGES := $(shell docker images -q $(IMAGE))
 RUNNING := $(shell docker ps --all --quiet --filter ancestor=$(IMAGE))
 
 pull:
-	docker pull $(IMAGE):latest
+	docker pull yawpitch/$(IMAGE):latest
 
 build:
 	docker build -t $(IMAGE) $(CURDIR)
