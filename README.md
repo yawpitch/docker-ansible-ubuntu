@@ -1,6 +1,6 @@
 # Ubuntu Artful (17.10) Ansible Test Image
 
-[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-artful.svg?branch=master)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-artful/)
+[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu.svg?branch=artful)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu/branches)
 [![Docker Automated build](https://img.shields.io/docker/automated/yawpitch/docker-ansible-ubuntu-artful.svg?maxAge=2592000)](https://hub.docker.com/r/yawpitch/docker-ansible-ubuntu-artful/)
 
 Dockerized Ubuntu Artful (17.10) for Ansible playbook and role tests.
