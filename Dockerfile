@@ -1,4 +1,4 @@
-FROM ubuntu:yakkety
+FROM ubuntu:zesty
 LABEL maintainer="Michael Morehouse (yawpitch)"
 
 # Install dependencies.
