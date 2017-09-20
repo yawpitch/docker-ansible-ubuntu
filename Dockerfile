@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:yakkety
 LABEL maintainer="Michael Morehouse (yawpitch)"
 
 # Install dependencies.
