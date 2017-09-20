@@ -1,6 +1,6 @@
 # Ubuntu Zesty (17.04) Ansible Test Image
 
-[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-zesty.svg?branch=master)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-zesty/)
+[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-zesty.svg?branch=zesty)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-zesty/)
 [![Docker Automated build](https://img.shields.io/docker/automated/yawpitch/docker-ansible-ubuntu-zesty.svg?maxAge=2592000)](https://hub.docker.com/r/yawpitch/docker-ansible-ubuntu-zesty/)
 
 Dockerized Ubuntu Zesty (17.04) for Ansible playbook and role tests.
