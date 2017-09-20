@@ -1,12 +1,13 @@
-FROM ubuntu:zesty
+FROM ubuntu:artful
 LABEL maintainer="Michael Morehouse (yawpitch)"
 
 # Install dependencies.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-       python-software-properties \
        software-properties-common \
        rsyslog systemd systemd-cron sudo \
+       # following line is required for pip install ansible
+       python-pip python-setuptools python-wheel \
     && rm -Rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean
@@ -14,17 +15,20 @@ RUN apt-get update \
 # Fix rsyslog.conf.
 RUN sed -i 's/^\($ModLoad imklog\)/#\1/' /etc/rsyslog.conf
 
-# Install Ansible.
-RUN apt-add-repository -y ppa:ansible/ansible \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       ansible \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
-    && apt-get clean
+# Install Ansible
+RUN pip install urllib3 pyOpenSSL ndg-httpsclient pyasn1 ansible
+
+# NOTE: No ansible build for artful in their PPA yet, so use pip install instead
+# RUN apt-add-repository -y ppa:ansible/ansible \
+#     && apt-get update \
+#     && apt-get install -y --no-install-recommends \
+#        ansible \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
+#     && apt-get clean
 
 # Install Ansible inventory file.
-RUN echo "[local]\nlocalhost" > /etc/ansible/hosts
+RUN mkdir -p /etc/ansible && echo "[local]\nlocalhost" > /etc/ansible/hosts
 
 # Restore initctl.
 COPY initctl_faker .

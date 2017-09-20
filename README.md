@@ -1,9 +1,9 @@
-# Ubuntu Zesty (17.04) Ansible Test Image
+# Ubuntu Artful (17.10) Ansible Test Image
 
-[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-zesty.svg?branch=master)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-zesty/)
-[![Docker Automated build](https://img.shields.io/docker/automated/yawpitch/docker-ansible-ubuntu-zesty.svg?maxAge=2592000)](https://hub.docker.com/r/yawpitch/docker-ansible-ubuntu-zesty/)
+[![Travis Automated build](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-artful.svg?branch=master)](https://travis-ci.org/yawpitch/docker-ansible-ubuntu-artful/)
+[![Docker Automated build](https://img.shields.io/docker/automated/yawpitch/docker-ansible-ubuntu-artful.svg?maxAge=2592000)](https://hub.docker.com/r/yawpitch/docker-ansible-ubuntu-artful/)
 
-Dockerized Ubuntu Zesty (17.04) for Ansible playbook and role tests.
+Dockerized Ubuntu Artful (17.10) for Ansible playbook and role tests.
 
 ## For Ansible Testing Only 
 
@@ -18,7 +18,7 @@ First, [Install Docker](https://docs.docker.com/engine/installation/), then choo
 Any time a commit is merged to the `master` branch of this repo, **or** any time there is a rebuild of the upstream OS container, an Automatic Build will occur on Docker Hub. You can use this be *pulling* the image to your local machine:
 
 ```sh
-sudo docker pull yawpitch/docker-ansible-ubuntu-zesty:latest
+sudo docker pull yawpitch/docker-ansible-ubuntu-artful:latest
 ```
 
 For convenience, a `make pull` target has been provided to do this for you. You can also both pull & verify the current Docker Hub image with the following command:
@@ -34,7 +34,7 @@ This will ensure that a container launched with from the image at minimum contai
 If you wish to build the image on your local machine, `git clone` this repo, `cd` into the repo, and then run:
 
 ```sh
-sudo docker build -t docker-ansible-ubuntu-zesty .
+sudo docker build -t docker-ansible-ubuntu-artful .
 ```
 
 For convenience, a `make build` target has been provided to do this for you. You can also both build & verify a local image of the current repo with the following command:
