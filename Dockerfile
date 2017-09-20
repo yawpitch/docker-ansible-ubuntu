@@ -4,7 +4,6 @@ LABEL maintainer="Michael Morehouse (yawpitch)"
 # Install dependencies.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-       python-software-properties \
        software-properties-common \
        rsyslog systemd systemd-cron sudo \
     && rm -Rf /var/lib/apt/lists/* \
