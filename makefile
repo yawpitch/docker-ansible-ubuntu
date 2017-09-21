@@ -4,7 +4,7 @@ THIS := $(lastword $(MAKEFILE_LIST))
 OPTS := -f $(THIS) --no-print-directory
 CURDIR := $(dir $(realpath $(THIS)))
 ifndef IMAGE
-IMAGE := $(notdir $(basename $(CURDIR:%/=%)))
+IMAGE := $(notdir $(basename $(CURDIR:%/=%)))-$(subst ubuntu:,,$(lastword $(shell head Dockerfile -n 1)))
 endif
 CONTAINER := $(notdir $(basename $(IMAGE)-container))
 G = "\033[92m"
@@ -37,10 +37,10 @@ _fail:
 	@ docker stop -t 0 $(CONTAINER)
 
 _clean:
-	@ if [ $(RUNNING) ]; then echo $(Y)Removing containers based on $(IMAGE)$(N); fi
-	@ if [ $(RUNNING) ]; then docker rm --force --volumes $(RUNNING); fi
-	@ if [ $(IMAGES) ]; then echo $(Y)Removing images from repo $(IMAGE)$(N); fi
-	@ if [ $(IMAGES) ]; then docker rmi --force $(IMAGES); fi
+	@ if [ "$(RUNNING)" ]; then echo $(Y)Removing containers based on $(IMAGE)$(N); fi
+	@ if [ "$(RUNNING)" ]; then docker rm --force --volumes $(RUNNING); fi
+	@ if [ "$(IMAGES)" ]; then echo $(Y)Removing images from repo $(IMAGE)$(N); fi
+	@ if [ "$(IMAGES)" ]; then docker rmi --force $(IMAGES); fi
 
 clean-local:
 	@ $(MAKE) $(OPTS) _clean IMAGE=$(IMAGE)
