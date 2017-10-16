@@ -23,7 +23,7 @@ RUN apt-add-repository -y ppa:ansible/ansible \
     && apt-get clean
 
 # Install Ansible inventory file.
-RUN echo "[local]\nlocalhost" > /etc/ansible/hosts
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
 # Restore initctl.
 COPY initctl_faker .
