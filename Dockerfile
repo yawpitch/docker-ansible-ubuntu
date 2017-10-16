@@ -28,7 +28,7 @@ RUN pip install urllib3 pyOpenSSL ndg-httpsclient pyasn1 ansible
 #     && apt-get clean
 
 # Install Ansible inventory file.
-RUN mkdir -p /etc/ansible && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+COPY hosts /etc/ansible/hosts
 
 # Restore initctl.
 COPY initctl_faker .
