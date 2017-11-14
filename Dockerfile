@@ -5,7 +5,7 @@ LABEL maintainer="Michael Morehouse (yawpitch)"
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        software-properties-common \
-       rsyslog systemd systemd-cron sudo make iputils\
+       rsyslog systemd systemd-cron sudo make iputils-ping \
     && rm -Rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean
